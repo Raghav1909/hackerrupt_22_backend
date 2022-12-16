@@ -1,7 +1,7 @@
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Date
 from sqlalchemy.orm import relationship
 
-from database import Base
+from .database import Base
 
 
 class User(Base):
@@ -60,7 +60,7 @@ class Job(Base):
     job_description = Column(String,nullable=True)
     job_location = Column(String,nullable=True)
     job_salary = Column(String,nullable=True)
-    applied_count = Column(Integer,nullable=False,default=0)
+    applicant_count = Column(Integer,nullable=False,default=0)
     job_posted_date = Column(Date,nullable=False)
     job_closing_date = Column(Date,nullable=False)
 
