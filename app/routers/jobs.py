@@ -1,7 +1,7 @@
 import schemas, models, utils, oauth2
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, Response,status
-from database import get_db
+from app.database import get_db
 
 router = APIRouter(
     prefix="/jobs",
