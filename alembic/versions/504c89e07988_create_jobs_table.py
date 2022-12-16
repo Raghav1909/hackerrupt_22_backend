@@ -19,7 +19,7 @@ depends_on = None
 def upgrade() -> None:
     op.create_table("jobs",
     sa.Column('id', sa.Integer, primary_key=True),
-    sa.Column('company_name', sa.String,nullable=False),
+    sa.Column('company_name', sa.String,sa.ForeignKey('company.company_name'),nullable=False),
     sa.Column('job_title', sa.String,nullable=False),
     sa.Column('job_description', sa.String,nullable=False),
     sa.Column('applicant_count', sa.Integer,nullable=False),
