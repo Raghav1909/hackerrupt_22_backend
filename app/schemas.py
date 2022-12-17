@@ -1,6 +1,6 @@
 from datetime import date
 from pydantic import BaseModel, EmailStr, HttpUrl
-
+from typing import Optional, Union
 
 class UserBase(BaseModel):
     email: EmailStr
@@ -9,7 +9,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
-    is_admin: bool | None = False
+    is_admin: Union[bool,None] = False
 
 
 class ProfileImage(BaseModel):
@@ -19,18 +19,18 @@ class ProfileImage(BaseModel):
 
 
 class UserUpdate(UserBase):
-    first_name: str | None = None
-    last_name: str | None = None
-    date_of_birth: date | None = None
-    phone_no: str | None = None
-    professional_summary: str | None = None
+    first_name: Union[str, None] = None
+    last_name: Union[str, None] = None
+    date_of_birth: Union[date, None] = None
+    phone_no: Union[str, None] = None
+    professional_summary: Union[str, None] = None
 
 class User(UserCreate):
-    first_name: str | None = None
-    last_name: str | None = None
-    date_of_birth: date | None = None
-    phone_no: str | None = None
-    professional_summary: str | None = None
+    first_name: Union[str,None] = None
+    last_name: Union[str,None] = None
+    date_of_birth: Union[date,None]= None
+    phone_no: Union[str,None] = None
+    professional_summary: Union[str,None] = None
     
     class Config:
         orm_mode = True
@@ -53,19 +53,19 @@ class JobBase(BaseModel):
     id: int
     company_name: str
     job_title: str
-    job_description: str | None = None
-    job_location: str | None = None
-    job_salary: str | None = None
-    job_posted_date: date | None = None
-    job_closing_date: date | None = None
+    job_description: Union[str,None] = None
+    job_location: Union[str,None] = None
+    job_salary: Union[str,None] = None
+    job_posted_date: Union[date,None] = None
+    job_closing_date: Union[date,None] = None
 
 
 class CompanyBase(BaseModel):
     id: int
     company_name: str
-    company_logo: int | None = None
-    company_website: str | None = None
-    company_description: str | None = None
+    company_logo: Union[int,None]= None
+    company_website: Union[str,None] = None
+    company_description: Union[str,None] = None
 
 
 class Token(BaseModel):
