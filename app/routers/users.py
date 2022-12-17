@@ -25,12 +25,12 @@ def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),cur
 
 # Single User routes
 
-@router.get("/{username}",status_code=status.HTTP_200_OK,response_model=schemas.UserOut)
-def get_user(username: str, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
-    if username != current_user.username and current_user.is_admin == False:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized to view this user")
+@router.get("/{email}",status_code=status.HTTP_200_OK,response_model=schemas.UserOut)
+def get_user(email: str, db: Session = Depends(get_db)):
+    # if username != current_user.username and current_user.is_admin == False:
+    #     raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized to view this user")
     
-    db_user = db.query(models.User).filter(models.User.username == username).first()
+    db_user = db.query(models.User).filter(models.User.email == email).first()
     if db_user is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
     return db_user
