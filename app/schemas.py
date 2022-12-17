@@ -38,12 +38,12 @@ class User(UserCreate):
 class UserOut(BaseModel):
     email: EmailStr
     username: str
-    # first_name: str | None = None 
-    # last_name: str | None = None
-    # date_of_birth: date | None = None
-    # phone_no: str | None = None
-    # professional_summary: str | None = None
-    # is_admin: bool
+    first_name: Union[str,None] = None 
+    last_name: Union[str,None] = None
+    date_of_birth: Union[date,None]= None
+    phone_no: Union[str,None] = None
+    professional_summary: Union[str,None] = None
+    is_admin: bool
 
     class config:
         orm_mode = True
