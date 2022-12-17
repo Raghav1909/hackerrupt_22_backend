@@ -18,27 +18,39 @@ class ProfileImage(BaseModel):
     url: HttpUrl
 
 
-class UserUpdate(BaseModel):
+class UserUpdate(UserBase):
     first_name: str | None = None
     last_name: str | None = None
-    is_admin: bool = False
     date_of_birth: date | None = None
-    designation: str | None = None
     phone_no: str | None = None
     professional_summary: str | None = None
 
-class User(UserBase):
+class User(UserCreate):
     first_name: str | None = None
     last_name: str | None = None
     date_of_birth: date | None = None
-    designation: str | None = None
     phone_no: str | None = None
     professional_summary: str | None = None
     
     class Config:
         orm_mode = True
 
+class UserOut(BaseModel):
+    email: EmailStr
+    username: str
+    # first_name: str | None = None 
+    # last_name: str | None = None
+    # date_of_birth: date | None = None
+    # phone_no: str | None = None
+    # professional_summary: str | None = None
+    # is_admin: bool
+
+    class config:
+        orm_mode = True
+
+
 class JobBase(BaseModel):
+    id: int
     company_name: str
     job_title: str
     job_description: str | None = None
@@ -49,6 +61,7 @@ class JobBase(BaseModel):
 
 
 class CompanyBase(BaseModel):
+    id: int
     company_name: str
     company_logo: int | None = None
     company_website: str | None = None

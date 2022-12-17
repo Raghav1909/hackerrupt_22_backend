@@ -24,4 +24,4 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    os.drop_table("profile_photos")
+    op.drop_table("profile_photos")

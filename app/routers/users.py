@@ -15,7 +15,7 @@ router = APIRouter(
 
 # Users routes
 
-@router.get("/",status_code=status.HTTP_200_OK,response_model=list[schemas.User],)
+@router.get("/",status_code=status.HTTP_200_OK,response_model=list[schemas.User])
 def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
     if not current_user.is_admin:
         raise HTTPException(status_code=403, detail="You are not allowed to access this page")
@@ -74,7 +74,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db),current_
 
 @router.patch("/{username}",status_code=status.HTTP_200_OK)
 def update_user(username: str, updated_user: schemas.UserUpdate, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
-    if username != updated_user.username and current_user.is_admin == False:
+    if username != updated_user.username and not current_user.is_admin:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized to update this user")
 
     db_user_query = db.query(models.User).filter(models.User.username == username)

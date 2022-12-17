@@ -1,7 +1,7 @@
 import schemas, models, utils, oauth2
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException, Response,status
-from app.database import get_db
+from database import get_db
 
 router = APIRouter(
     prefix="/jobs",
@@ -23,7 +23,7 @@ def create_job(job: schemas.JobBase, db: Session = Depends(get_db),current_user:
     if not current_user.is_admin:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized to create jobs")
     
-    db_job = db.query(models.Job).filter(models.Job.name == job.name).first()
+    db_job = db.query(models.Job).filter(models.Job.job_title == job.job_title).first()
     
     if db_job:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Job already registered")
@@ -42,7 +42,7 @@ def get_job(name: str, db: Session = Depends(get_db),current_user: int = Depends
     if name != current_user.username and current_user.is_admin == False:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized to view this job")
     
-    db_job = db.query(models.Job).filter(models.Job.name == name).first()
+    db_job = db.query(models.Job).filter(models.Job.job_title == name).first()
     if db_job is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
     return db_job
