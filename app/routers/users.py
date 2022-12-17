@@ -15,7 +15,7 @@ router = APIRouter(
 
 # Users routes
 
-@router.get("/",status_code=status.HTTP_200_OK,response_model=list[schemas.User])
+@router.get("/",status_code=status.HTTP_200_OK,response_model=list[schemas.UserOut])
 def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
     if not current_user.is_admin:
         raise HTTPException(status_code=403, detail="You are not allowed to access this page")
@@ -25,7 +25,7 @@ def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),cur
 
 # Single User routes
 
-@router.get("/{username}",status_code=status.HTTP_200_OK,response_model=schemas.User)
+@router.get("/{username}",status_code=status.HTTP_200_OK,response_model=schemas.UserOut)
 def get_user(username: str, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
     if username != current_user.username and current_user.is_admin == False:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized to view this user")

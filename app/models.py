@@ -61,7 +61,7 @@ class Job(Base):
     job_location = Column(String,nullable=True)
     job_salary = Column(String,nullable=True)
     applicant_count = Column(Integer,nullable=False,default=0)
-    job_posted_date = Column(Date,nullable=False)
-    job_closing_date = Column(Date,nullable=False)
+    job_posted_date = Column(Date,nullable=True)
+    job_closing_date = Column(Date,nullable=True)
 
     company = relationship("Company")

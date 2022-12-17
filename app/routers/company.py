@@ -39,7 +39,7 @@ def create_company(company: schemas.CompanyBase, db: Session = Depends(get_db),c
 
 @router.get("/{name}",status_code=status.HTTP_200_OK,response_model=schemas.CompanyBase)
 def get_company(name: str, db: Session = Depends(get_db),current_user: int = Depends(oauth2.get_current_user)):
-    if name != current_user.company and not current_user.is_admin:
+    if not current_user.is_admin:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Not authorized to view this company")
     
     db_company = db.query(models.Company).filter(models.Company.company_name == name).first()

@@ -27,7 +27,7 @@ def upgrade() -> None:
     sa.Column('job_salary', sa.String,nullable=False),
     sa.Column('date_posted', sa.Date,nullable=False),
     sa.Column('job_posted_date', sa.DateTime, server_default=sa.func.now()),
-    sa.Column('job_closing date', sa.DateTime, server_default=sa.func.now(), onupdate=sa.func.now()),
+    sa.Column('job_closing_date', sa.DateTime, server_default=sa.func.now(), onupdate=sa.func.now()),
     )
 
 

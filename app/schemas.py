@@ -45,12 +45,11 @@ class UserOut(BaseModel):
     professional_summary: Union[str,None] = None
     is_admin: bool
 
-    class config:
+    class Config:
         orm_mode = True
 
 
 class JobBase(BaseModel):
-    id: int
     company_name: str
     job_title: str
     job_description: Union[str,None] = None
@@ -59,13 +58,22 @@ class JobBase(BaseModel):
     job_posted_date: Union[date,None] = None
     job_closing_date: Union[date,None] = None
 
+    class Config:
+        orm_mode = True
+
 
 class CompanyBase(BaseModel):
-    id: int
-    company_name: str
+    company_name: Union[str,None] = None
     company_logo: Union[int,None]= None
     company_website: Union[str,None] = None
     company_description: Union[str,None] = None
+
+    class Config:
+        orm_mode = True
+
+class CompanyOut(BaseModel):
+    company_name: str
+    company_website: str
 
 
 class Token(BaseModel):
